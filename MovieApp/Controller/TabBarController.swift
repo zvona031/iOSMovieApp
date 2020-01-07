@@ -29,5 +29,9 @@ class TabBarController: UITabBarController {
         let tabBarItem2 = (self.tabBar.items?[2])! as UITabBarItem
         tabBarItem2.title = "Favorite"
         tabBarItem2.image = UIImage(named: "favorite")
+        
+        let tabBarItem3 = (self.tabBar.items?[3])! as UITabBarItem
+        tabBarItem3.title = "Search"
+        tabBarItem3.image = UIImage(named: "search")
     }
 }

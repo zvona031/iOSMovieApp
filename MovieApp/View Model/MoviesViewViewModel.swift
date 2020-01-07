@@ -24,6 +24,10 @@ class MoviesViewViewModel {
         switch tab {
         case 0..<2:
             getOnlineMovies(tab: tab)
+        case 2:
+            getFavoriteMovies()
+        case 3:
+            print("SearchTab")
         default:
             getFavoriteMovies()
         }
@@ -71,6 +75,25 @@ class MoviesViewViewModel {
 //                print("Network error")
 //            }
             
+        })
+    }
+    
+    func searchMovies(query: String){
+        dataService.searchMovies(query: query, completion: {[weak self] result,error in
+            guard let welf = self else { return }
+            guard let res = result else { return }
+            welf.moviesViewModel.removeAll()
+            for movie in res{
+                print(movie["id"])
+                guard let currentMovie = Movie(json: movie) else { return }
+                let movieViewModel = MovieViewModel(movie: currentMovie)
+                let isFavorite = welf.localDatabase.checkIsFavorite(movie: movieViewModel)
+                if isFavorite == true {
+                    movieViewModel.isFavorite = true
+                }
+                welf.moviesViewModel.append(movieViewModel)
+            }
+            welf.delegate?.reloadCollectionView()
         })
     }
     

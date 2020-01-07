@@ -17,10 +17,12 @@ class MoviesViewController: UIViewController, MoviesViewModelDelegate, MovieCell
     let detailsViewIdentifier = "Details"
     var layout: UICollectionViewFlowLayout!
     var tab: Int?
+    var searchController = UISearchController(searchResultsController: nil)
 
     override func viewDidLoad() {
         super.viewDidLoad()
         tab = tabBarController?.selectedIndex
+        setView()
         getMovies()
     }
     
@@ -28,7 +30,8 @@ class MoviesViewController: UIViewController, MoviesViewModelDelegate, MovieCell
         super.viewWillAppear(animated)
         if tab == 2 {
             viewModel.getFavoriteMovies() // Refresha listu favorita u Favorite tabu
-        }else {
+        }
+        else {
             viewModel.compareFavorites() // Stavlja prazna srca u Popular i Latest na ona koja su bila u favoritima ali su maknuta iz favorita u Favorite tabu
         }
     }
@@ -36,6 +39,28 @@ class MoviesViewController: UIViewController, MoviesViewModelDelegate, MovieCell
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         setLayout()
+    }
+    
+    func setView(){
+        switch tab {
+        case 0:
+            self.title = "Latest"
+        case 1:
+            self.title = "Popular"
+        case 2:
+            self.title = "Favorite"
+        case 3:
+            self.title = nil
+            searchController.searchBar.sizeToFit()
+            navigationItem.titleView = searchController.searchBar
+            searchController.searchBar.placeholder = "Search Movies"
+            searchController.obscuresBackgroundDuringPresentation = false
+            searchController.hidesNavigationBarDuringPresentation = false
+            searchController.searchResultsUpdater = self
+            definesPresentationContext = true
+        default:
+            self.title = nil
+        }
     }
     
     func getMovies(){
@@ -139,3 +164,18 @@ extension MoviesViewController: UICollectionViewDelegate,UICollectionViewDataSou
     }
 }
 
+extension MoviesViewController: UISearchResultsUpdating {
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        if let searchText = searchController.searchBar.text {
+            let trimmedSearchText = searchText.trimmingCharacters(in: .whitespacesAndNewlines)
+            if !trimmedSearchText.isEmpty {
+                viewModel.searchMovies(query: trimmedSearchText)
+            }else {
+                viewModel.moviesViewModel.removeAll()
+                reloadCollectionView()
+            }
+        }
+    }
+
+}

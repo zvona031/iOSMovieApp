@@ -23,16 +23,16 @@ class MovieViewModel: Equatable {
     }
     
     var poster_path: String {
-        return movie.poster_path
+        return movie.poster_path ?? "nil"
     }
     var original_title: String {
-        return movie.original_title
+        return movie.original_title ?? "No original title"
     }
     var overview: String {
-        return movie.overview
+        return movie.overview ?? "No overview"
     }
     var vote_average: Double {
-        return movie.vote_average
+        return movie.vote_average ?? 0
     }
     var id: String {
         return String(movie.id)

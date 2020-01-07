@@ -122,13 +122,13 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="4jC-pB-gho" firstAttribute="leading" secondItem="vrF-uz-o6Z" secondAttribute="leading" constant="10" id="BSS-NV-LWs"/>
                             <constraint firstItem="mnx-9r-rh2" firstAttribute="top" secondItem="vrF-uz-o6Z" secondAttribute="top" id="H2M-qM-sxa"/>
                             <constraint firstItem="mvu-Dv-H0y" firstAttribute="leading" secondItem="vrF-uz-o6Z" secondAttribute="leading" constant="10" id="NdB-kr-CiQ"/>
-                            <constraint firstItem="4jC-pB-gho" firstAttribute="top" secondItem="mnx-9r-rh2" secondAttribute="bottom" constant="10" id="SPD-tW-8gN"/>
+                            <constraint firstItem="4jC-pB-gho" firstAttribute="leading" secondItem="vrF-uz-o6Z" secondAttribute="leading" constant="10" id="WYS-Zr-IXn"/>
                             <constraint firstItem="mvu-Dv-H0y" firstAttribute="top" secondItem="4jC-pB-gho" secondAttribute="bottom" constant="10" id="XgM-lq-frg"/>
                             <constraint firstItem="vrF-uz-o6Z" firstAttribute="trailing" secondItem="mvu-Dv-H0y" secondAttribute="trailing" constant="10" id="d2c-Pk-DDR"/>
                             <constraint firstItem="mnx-9r-rh2" firstAttribute="trailing" secondItem="vrF-uz-o6Z" secondAttribute="trailing" id="eVg-89-7q1"/>
+                            <constraint firstItem="4jC-pB-gho" firstAttribute="top" secondItem="mnx-9r-rh2" secondAttribute="bottom" constant="10" id="fn5-N0-Qhp"/>
                             <constraint firstItem="mnx-9r-rh2" firstAttribute="leading" secondItem="vrF-uz-o6Z" secondAttribute="leading" id="jZq-aM-HT0"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="vrF-uz-o6Z"/>
@@ -153,6 +153,7 @@
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="ap0-T6-fXW" customClass="TabBarController" customModule="MovieApp" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="HFj-gI-UTI">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
@@ -160,6 +161,7 @@
                         <segue destination="j5q-1y-2Wi" kind="relationship" relationship="viewControllers" id="1pE-gJ-mn5"/>
                         <segue destination="j5q-1y-2Wi" kind="relationship" relationship="viewControllers" id="85D-ct-vpl"/>
                         <segue destination="j5q-1y-2Wi" kind="relationship" relationship="viewControllers" id="veN-0f-qtJ"/>
+                        <segue destination="j5q-1y-2Wi" kind="relationship" relationship="viewControllers" id="g5K-fq-bPs"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BUZ-pb-YtV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

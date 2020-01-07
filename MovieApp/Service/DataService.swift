@@ -12,7 +12,7 @@ import Alamofire
 
 class DataService {
     
-    private let  baseUrl = "https://api.themoviedb.org/3/movie"
+    private let  baseUrl = "https://api.themoviedb.org/3"
     
     enum NetworkError: Error {
         case failure
@@ -20,7 +20,7 @@ class DataService {
     }
     
     func fetchMovies(key: String,completion: @escaping ([JSON]?, NetworkError) -> ()) {
-        let requestUrl = "\(baseUrl)/\(key)?api_key=99460c4f7bd0cd6322c499e1c5d99677"
+        let requestUrl = "\(baseUrl)/movie/\(key)?api_key=99460c4f7bd0cd6322c499e1c5d99677"
         Alamofire.request(requestUrl).validate().responseJSON{
             response in
             switch response.result {
@@ -46,7 +46,35 @@ class DataService {
     }
     
     func fetchTrailer(id: String,completion: @escaping ([JSON]?, NetworkError) -> ()) {
-        let requestUrl = "\(baseUrl)/\(id)/videos?api_key=99460c4f7bd0cd6322c499e1c5d99677"
+        let requestUrl = "\(baseUrl)/movie/\(id)/videos?api_key=99460c4f7bd0cd6322c499e1c5d99677"
+        Alamofire.request(requestUrl).validate().responseJSON{
+            response in
+            switch response.result {
+            case .success:
+                guard let data = response.data else {
+                    print("data = nil")
+                    completion(nil, .failure)
+                    return
+                }
+                let json = try? JSON(data: data)
+                let results = json?["results"].arrayValue  // JSON tip varijable popunjen filmovima
+                guard let empty = results?.isEmpty, !empty else {
+                    print("results is empty")
+                    completion(nil, .failure)
+                    return
+                }
+                completion(results, .success)
+            case .failure:
+                print("failure")
+                completion(nil, .failure)
+            }
+        }
+    }
+    
+    func searchMovies(query: String, completion: @escaping ([JSON]?, NetworkError) -> ()) {
+        let newQuery = query.replacingOccurrences(of: " ", with: "%20")
+        let requestUrl = "\(baseUrl)/search/movie?query=\(newQuery)&api_key=99460c4f7bd0cd6322c499e1c5d99677"
+        print(requestUrl)
         Alamofire.request(requestUrl).validate().responseJSON{
             response in
             switch response.result {
